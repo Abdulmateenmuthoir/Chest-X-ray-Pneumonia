@@ -150,10 +150,23 @@ st.markdown("""
 def load_classification_model():
     """Load the trained model with caching."""
     model_path = os.path.join(config.MODEL_DIR, "pneumonia_classifier_final.keras")
-    if os.path.exists(model_path):
-        model = load_model(model_path)
-        return model
-    return None
+    
+    # Reassemble split model chunks if the main file is missing (For Streamlit Cloud deployment)
+    part_dir = os.path.dirname(model_path)
+    if os.path.exists(part_dir):
+        part_files = sorted([f for f in os.listdir(part_dir) if f.startswith("model_part_")])
+        if not os.path.exists(model_path) and part_files:
+            with st.spinner("Reassembling model from chunks (first run only)..."):
+                with open(model_path, "wb") as outfile:
+                    for part in part_files:
+                        with open(os.path.join(part_dir, part), "rb") as infile:
+                            outfile.write(infile.read())
+                            
+    if not os.path.exists(model_path):
+        return None
+        
+    model = load_model(model_path)
+    return model
 
 
 @st.cache_data
