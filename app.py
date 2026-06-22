@@ -193,6 +193,24 @@ def preprocess_image(image):
     return img_array
 
 
+def is_likely_xray(image):
+    """
+    Heuristic check to see if an image is likely a grayscale X-ray.
+    Checks the variance between color channels.
+    """
+    img_rgb = image.convert('RGB')
+    arr = np.array(img_rgb)
+    
+    # Calculate standard deviation across the RGB channels for each pixel
+    std_dev = np.std(arr, axis=2)
+    mean_std_dev = np.mean(std_dev)
+    
+    # If the variance between colors is high, it's a colored photo, not an X-ray.
+    if mean_std_dev > 10.0:
+        return False
+    return True
+
+
 def make_prediction(model, img_array):
     """Make prediction and return results."""
     prediction = model.predict(img_array, verbose=0)[0][0]
@@ -314,6 +332,11 @@ with col2:
     
     if uploaded_file is not None and classify_btn:
         with st.spinner("🔄 Analyzing chest X-ray..."):
+            # Check if it's an X-ray
+            if not is_likely_xray(image):
+                st.error("⚠️ **This image is not an X-ray scan.** Kindly upload an X-ray scan.")
+                st.stop()
+                
             # Preprocess and predict
             img_array = preprocess_image(image)
             result = make_prediction(model, img_array)
