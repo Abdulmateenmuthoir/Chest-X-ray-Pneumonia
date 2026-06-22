@@ -1,0 +1,27 @@
+# Environments
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+outputs/model/*.keras
+outputs/model/*.h5
+outputs/logs/
+
+# MacOS
+.DS_Store
+
+# Datasets
+*.zip
+*.tar.gz
