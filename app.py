@@ -97,6 +97,7 @@ st.markdown("""
     /* Info box */
     .info-box {
         background: #e3f2fd;
+        color: #0d47a1;
         padding: 1rem;
         border-radius: 8px;
         border-left: 4px solid #1976d2;
@@ -106,11 +107,37 @@ st.markdown("""
     /* Disclaimer */
     .disclaimer {
         background: #fff3e0;
+        color: #e65100;
         padding: 0.8rem;
         border-radius: 8px;
         border-left: 4px solid #ff9800;
         font-size: 0.85rem;
         margin-top: 1rem;
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .main-header {
+            padding: 1rem 0.5rem;
+        }
+        .main-header h1 {
+            font-size: 1.5rem;
+        }
+        .main-header p {
+            font-size: 0.9rem;
+        }
+        .result-label {
+            font-size: 1.5rem;
+        }
+        .metric-value {
+            font-size: 1.2rem;
+        }
+        .metric-card {
+            padding: 0.5rem;
+        }
+        div[data-testid="stColumns"] {
+            flex-direction: column;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
