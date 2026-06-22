@@ -47,16 +47,49 @@ Chest_X-ray/
     └── logs/                 # Training logs
 ```
 
-## 🚀 Getting Started
+## 🚀 Local Setup Instructions (For Defense & Testing)
 
-### 1. Install Dependencies
+Follow these exact steps to pull this project to your local computer and run the Streamlit web app.
 
+### 1. Clone the Repository
+Open your terminal (or Command Prompt) and run:
+```bash
+git clone https://github.com/Abdulmateenmuthoir/Chest-X-ray-Pneumonia.git
+cd Chest-X-ray-Pneumonia
+```
+
+### 2. Create a Virtual Environment (Recommended)
+It is best to run this in an isolated Python environment so it doesn't conflict with other projects.
+```bash
+# For Mac/Linux:
+python3 -m venv venv
+source venv/bin/activate
+
+# For Windows:
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+Once your virtual environment is active (you will see `(venv)` in your terminal), install the required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Download the Dataset
+### 4. Run the Web Application Locally
+The model weights are already downloaded if you pulled the latest repo. You do not need to re-train the model. Simply launch the web app:
+```bash
+streamlit run app.py
+```
+This will open the fully functional dashboard in your browser at `http://localhost:8501`.
 
+---
+
+## 🔬 Developer Commands (Optional)
+
+If you want to re-download the dataset or re-train the model from scratch, use the commands below.
+
+### Download the Dataset
 ```bash
 python download_dataset.py
 ```
